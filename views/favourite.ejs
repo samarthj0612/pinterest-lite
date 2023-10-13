@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="author" content="Samarth Jain" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Pinterest</title>
+    <link href="https://cdn.jsdelivr.net/npm/remixicon@2.5.0/fonts/remixicon.css" rel="stylesheet" />
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-Zenh87qX5JnK2Jl0vWa8Ck2rdkQ2Bzep5IDxbcnCeuOxjzrPF/et3URy9Bv1WTRi" crossorigin="anonymous" />
+    <link rel="stylesheet" href="/stylesheets/style.css" />
+  </head>
+
+  <body>
+    <div id="sj-main">
+      <div id="uploadform">
+        <form action="/upload" method="post" enctype="multipart/form-data">
+          <input type="file" name="design" id="design" />
+          <input type="text" name="title" id="title" placeholder="Title" class="p-2" />
+          <textarea name="description" id="description" rows="3" placeholder="About your design...." class="p-2" ></textarea>
+          <input type="submit" value="Upload" class="btn btn-primary" />
+        </form>
+
+        <button id="formbackbtn" class="btn btn-secondary px-5 d-flex justify-content-center align-items-center gap-2 position-absolute end-0 bottom-0 m-4" >
+          <i class="ri-arrow-go-back-line"></i>Back
+        </button>
+      </div>
+
+      <nav>
+        <i class="ri-pinterest-fill fs-1"></i>
+        <a href="/home">Home</a><a href="#">Catgories</a><a href="#">About</a>
+        <input type="search" name="searchingtxt" id="searchingtxt" placeholder="Search for designs . . ." />
+        <i id="uploadbtn" class="ri-upload-line"></i>
+        <i class="ri-star-fill"></i>
+
+        <div class="dropdown">
+          <button class="btn btn-outline-light dropdown-toggle d-flex align-items-center" type="button" data-bs-toggle="dropdown" aria-expanded="false" >
+            <%= user.username %>
+            <div id="dp" class="mx-2">
+              <img src="https://images.unsplash.com/photo-1492288991661-058aa541ff43?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=1887&q=80" alt="" />
+            </div>
+          </button>
+
+          <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#">My profile</a></li>
+            <li><a class="dropdown-item" href="/owndesigns">Own designs</a></li>
+            <li><a class="dropdown-item" href="/favourites">Favourites</a></li>
+          </ul>
+        </div>
+      </nav>
+
+      <div id="main">
+        <% user.favourites.forEach(function(design){ %>
+          <div id="design">
+            <a href="/removefromfavourites/<%= design._id %>" ><i class="ri-heart-fill" id="favourite" style="color: red"></i ></a>
+            <img src="/images/designs/<%= design.design %>" alt="" />
+
+            <div id="title">
+              <%= design.title %><i class="ri-whatsapp-fill"></i>
+            </div>
+
+            <p><%= design.description %></p>
+          </div>
+        <% }) %>
+      </div>
+    </div>
+
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3" crossorigin="anonymous" ></script>
+    <script src="/javascripts/script.js"></script>
+  </body>
+</html>
